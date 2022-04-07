@@ -1,9 +1,16 @@
 package com.company;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.util.Scanner;
 
+// Hashing av tekststrenger med lineÃ¦r probing
+// Bruker Javas innebygde hashfunksjon for strenger
+//
+// Enkel og begrenset implementasjon:
+//
+// - Ingen rehashing ved full tabell
+// - Tilbyr bare innsetting og sÃ¸king
+//
 public class lastComeFirstServe {
     // Hashlengde
     private int hashLengde;
@@ -20,7 +27,7 @@ public class lastComeFirstServe {
     // KonstruktÃ¸r
     // Sjekker ikke for fornuftig verdi av hashlengden
     //
-    public hashLinear(int lengde) {
+    public lastComeFirstServe(int lengde) {
         hashLengde = lengde;
         hashTabell = new String[lengde];
         n = 0;
@@ -58,12 +65,18 @@ public class lastComeFirstServe {
         // LineÃ¦r probing
         int neste = h;
 
-        while (hashTabell[neste] != null) {
+        String T = hashTabell[neste];
+        hashTabell[neste] = S;
+
+
+        while (T != null) {
             // Ny probe
             antProbes++;
-
-            // Denne indeksen er opptatt, prÃ¸ver neste
             neste++;
+            S = T;
+            T = hashTabell[neste];
+            hashTabell[neste] = S;
+
 
             // Wrap-around
             if (neste >= hashLengde)
@@ -134,15 +147,15 @@ public class lastComeFirstServe {
         File file = new File("../hashAlg/src/com/company/car.txt");
         Scanner input = new Scanner(file);
 
-        hashLinear hL;
+        lastComeFirstServe hL;
         hashLengde = input.nextInt();
-        hL = new hashLinear(hashLengde);
+        hL = new lastComeFirstServe(hashLengde);
 
         System.out.println(hashLengde);
         while (input.hasNext()) {
+
             String linje = input.nextLine();
             hL.insert(linje);
-
         }
 
 
@@ -161,8 +174,8 @@ public class lastComeFirstServe {
         if (!hL.search(S))
             System.out.println("\"" + S + "\"" + " finnes ikke i hashtabellen");
 
-
+//        for (int i = 0; i < hL.hashTabell.length; i++){
+//            System.out.printf("at index: %d: %s \n", i, hL.hashTabell[i]);
+//        }
     }
-
-
 }

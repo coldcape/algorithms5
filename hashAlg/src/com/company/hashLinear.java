@@ -149,7 +149,6 @@ public class hashLinear {
         while (input.hasNext()) {
             String linje = input.nextLine();
             hL.insert(linje);
-
         }
 
 
@@ -168,5 +167,8 @@ public class hashLinear {
         if (!hL.search(S))
             System.out.println("\"" + S + "\"" + " finnes ikke i hashtabellen");
 
+//        for (int i = 0; i < hL.hashTabell.length; i++) {
+//            System.out.printf("at index: %d: %s \n", i, hL.hashTabell[i]);
+//        }
     }
 }
