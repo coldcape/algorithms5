@@ -147,9 +147,9 @@ public class lastComeFirstServe {
         File file = new File("../hashAlg/src/com/company/car.txt");
         Scanner input = new Scanner(file);
 
-        lastComeFirstServe hL;
+        robinHood hL;
         hashLengde = input.nextInt();
-        hL = new lastComeFirstServe(hashLengde);
+        hL = new robinHood(hashLengde);
 
         System.out.println(hashLengde);
         while (input.hasNext()) {

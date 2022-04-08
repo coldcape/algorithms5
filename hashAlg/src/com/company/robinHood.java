@@ -1,6 +1,7 @@
 package com.company;
 
 import java.io.*;
+import java.util.Objects;
 import java.util.Scanner;
 
 // Hashing av tekststrenger med lineÃ¦r probing
@@ -11,7 +12,7 @@ import java.util.Scanner;
 // - Ingen rehashing ved full tabell
 // - Tilbyr bare innsetting og sÃ¸king
 //
-public class hashLinear {
+public class robinHood {
     // Hashlengde
     private int hashLengde;
 
@@ -27,7 +28,7 @@ public class hashLinear {
     // KonstruktÃ¸r
     // Sjekker ikke for fornuftig verdi av hashlengden
     //
-    public hashLinear(int lengde) {
+    public robinHood(int lengde) {
         hashLengde = lengde;
         hashTabell = new String[lengde];
         n = 0;
@@ -65,9 +66,23 @@ public class hashLinear {
         // LineÃ¦r probing
         int neste = h;
 
-        while (hashTabell[neste] != null) {
+        String T = hashTabell[neste];
+        if (T == null) {
+            hashTabell[neste] = S;
+        }
+
+        while (T != null) {
             // Ny probe
             antProbes++;
+
+            int S_distanse = neste - hash(S);
+            int T_distanse = neste - hash(T);
+
+            if (Objects.equals(hashTabell[neste], S)) {
+                S = T;
+            }
+            neste++;
+            T = hashTabell[neste];
 
             // Denne indeksen er opptatt, prÃ¸ver neste
             neste++;
@@ -85,8 +100,6 @@ public class hashLinear {
             }
         }
 
-        // Lagrer tekststrengen pÃ¥ funnet indeks
-        hashTabell[neste] = S;
 
         // Ã˜ker antall elementer som er lagret
         n++;
